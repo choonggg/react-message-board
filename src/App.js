@@ -7,8 +7,8 @@ import MessageView from './views/MessageView'
 
 const App = () => {
   return (
-    <div class="App">
-      <main class="cc0img9">
+    <div className="App">
+      <main className="cc0img9">
         <MessageView />
       </main>
 

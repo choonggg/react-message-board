@@ -1,23 +1,23 @@
 import React from 'react';
+
 import ProgressBar from '@/components/ProgressBar'
+import MessageForm from './MessageForm'
+import MessageLists from './MessageLists'
 
 export default class MessageView extends React.Component {
-  constructor() {
-    super()
-  }
-
   render() {
     return(
       <div className="MessageView">
 
-        <header class="MessageView__header">
-          <div class="MessageView__header-title cynqhgr">
+        <header className="MessageView__header c1pr40a">
+          <div className="MessageView__header-title cynqhgr">
             <h1 className="c17defmp">Message board</h1>
-            <ProgressBar />
+            <ProgressBar className="c1g8hd9e c1sg2lsz" />
           </div>
-          <p class="cp6shng">A place to post and read messages.</p>
+          <p className="cp6shng">A place to post and read messages.</p>
         </header>
 
+        <MessageForm />
       </div>
     );
   }
