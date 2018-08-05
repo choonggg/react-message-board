@@ -15,11 +15,16 @@ export default class MessageForm extends Component {
       }
     }
 
+    this.handleFormChange = this.handleFormChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 
-  updateForm(data) {
-    this.setState({ form: data })
+  handleFormChange(event) {
+    const { name, value } = event.target
+
+    this.setState({ form:
+      { [name]: value }
+    })
   }
 
   handleFormSubmit(e) {
@@ -57,20 +62,25 @@ export default class MessageForm extends Component {
             <div className="c1u3f0g5">
 
               <div className="cz1obge">
-                { /* Error message is shown if user leaves input without filling it in. Use class .touched */ }
                 <div className={`error ${ touchedClass }`}>
                   <label className="c1ug13ud" htmlFor="message">Message</label>
                   <input
                     id="message"
                     className="cydik8e"
+                    name="message"
                     value={ message }
+                    disabled={ submitting }
                     onBlur={ (e) => this.handleMessageBlur(e.target.value) }
-                    onChange={ (e) => this.updateForm({ message: e.target.value }) } />
+                    onChange={this.handleFormChange} />
+
                   <div className="c11hehzj" role="alert">A message is required</div>
                 </div>
+
                 <div>
                   <label className="c1ug13ud" htmlFor="color">Color</label>
-                  <select id="color" className="cytasr3">
+                  <select id="color"
+                    className="cytasr3"
+                    disabled={ submitting } >
                     <option>Choose a color...</option>
                     <option value="#2795D9">Blue</option>
                     <option value="#672d93">Purple</option>
@@ -79,13 +89,12 @@ export default class MessageForm extends Component {
                 </div>
               </div>
 
-
-                <div className="c7vrlqv">
-                  { /* button is disabled if message is empty or request is in progress */ }
-                  <button className="c13ogcrc" disabled={!message || submitting} type="submit">
-                    { this.renderButton() }
-                  </button>
-                </div>
+              <div className="c7vrlqv">
+                { /* button is disabled if message is empty or request is in progress */ }
+                <button className="c13ogcrc" disabled={!message || submitting} type="submit">
+                  { this.renderButton() }
+                </button>
+              </div>
 
             </div>
           </fieldset>

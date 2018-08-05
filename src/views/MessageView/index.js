@@ -1,8 +1,9 @@
 import React from 'react';
 
 import ProgressBar from '@/components/ProgressBar'
-import MessageForm from './MessageForm'
-import MessageLists from './MessageLists'
+import Form from './MessageForm'
+import Search from './MessageSearch'
+import Lists from './MessageLists'
 
 export default class MessageView extends React.Component {
   render() {
@@ -17,7 +18,11 @@ export default class MessageView extends React.Component {
           <p className="cp6shng">A place to post and read messages.</p>
         </header>
 
-        <MessageForm />
+        <section>
+          <Form />
+          <Search />
+          <Lists />
+        </section>
       </div>
     );
   }
