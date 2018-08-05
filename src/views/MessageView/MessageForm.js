@@ -1,17 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { inject, observer } from 'mobx-react'
 
 import ProgressBar from '@/components/ProgressBar'
+import ColorSelect from './ColorSelect'
 
+const initialMessage = {
+  content: "",
+  color: "",
+}
+
+@inject('messageStore')
+@observer
 export default class MessageForm extends Component {
   constructor() {
     super()
 
     this.state = {
       touched: false,
-      submitting: false,
-      form: {
-        message: "",
-        color: undefined,
+      message: {
+        ...initialMessage
       }
     }
 
@@ -22,14 +29,18 @@ export default class MessageForm extends Component {
   handleFormChange(event) {
     const { name, value } = event.target
 
-    this.setState({ form:
-      { [name]: value }
+    this.setState({ message:
+      {
+        ...this.state.message,
+        [name]: value
+      }
     })
   }
 
-  handleFormSubmit(e) {
-    e.preventDefault()
-    this.setState({ submitting: true })
+  handleFormSubmit(event) {
+    event.preventDefault()
+    this.props.messageStore.createMessage(this.state.message)
+    this.setState({ message: { ...initialMessage } })
   }
 
   handleMessageBlur(value) {
@@ -37,7 +48,9 @@ export default class MessageForm extends Component {
   }
 
   renderButton() {
-    if (this.state.submitting) {
+    const { submitting } = this.props.messageStore
+
+    if (submitting) {
       return (
         <div style={{ width: 121, height: 29 }}>
           <ProgressBar className="c161wjul c1sg2lsz" />
@@ -49,8 +62,8 @@ export default class MessageForm extends Component {
   }
 
   render() {
-    let { submitting } = this.state
-    let { message } = this.state.form
+    let { submitting } = this.props.messageStore
+    let { content, color } = this.state.message
     let touchedClass = this.state.touched ? 'touched' :  ''
 
     return(
@@ -67,8 +80,8 @@ export default class MessageForm extends Component {
                   <input
                     id="message"
                     className="cydik8e"
-                    name="message"
-                    value={ message }
+                    name="content"
+                    value={ content }
                     disabled={ submitting }
                     onBlur={ (e) => this.handleMessageBlur(e.target.value) }
                     onChange={this.handleFormChange} />
@@ -78,20 +91,17 @@ export default class MessageForm extends Component {
 
                 <div>
                   <label className="c1ug13ud" htmlFor="color">Color</label>
-                  <select id="color"
-                    className="cytasr3"
-                    disabled={ submitting } >
-                    <option>Choose a color...</option>
-                    <option value="#2795D9">Blue</option>
-                    <option value="#672d93">Purple</option>
-                    <option value="linear-gradient(to right, #e6e600, #f7941d 17%, #fff100 34%, #00a650 51%, #0054a5 68%, #672d93 85%, #672d93)">Rainbow</option>
-                  </select>
+                  <ColorSelect
+                    id="color"
+                    value={color}
+                    name="color"
+                    onChange={this.handleFormChange}
+                    disabled={ submitting } />
                 </div>
               </div>
 
               <div className="c7vrlqv">
-                { /* button is disabled if message is empty or request is in progress */ }
-                <button className="c13ogcrc" disabled={!message || submitting} type="submit">
+                <button className="c13ogcrc" disabled={!content || submitting} type="submit">
                   { this.renderButton() }
                 </button>
               </div>
