@@ -1,19 +1,22 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
+import { Provider } from 'mobx-react'
 
-import Footer from '@/components/Footer'
-
+import MessageStore from '@/stores/MessageStore'
 import MessageView from './views/MessageView'
+import Footer from '@/components/Footer'
 
 const App = () => {
   return (
-    <div className="App">
-      <main className="cc0img9">
-        <MessageView />
-      </main>
+    <Provider messageStore={MessageStore}>
+      <div className="App">
+        <main className="cc0img9">
+          <MessageView store={store} />
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </Provider>
   )
 }
 
