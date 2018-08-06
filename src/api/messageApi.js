@@ -10,3 +10,5 @@ export function getMessages(filters) {
 export function postMessage(message) {
   return http.post('/messages', message)
 }
+
+export default { getMessages, postMessage }

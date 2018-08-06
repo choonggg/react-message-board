@@ -11,7 +11,9 @@ const App = () => {
     <Provider messageStore={MessageStore}>
       <div className="App">
         <main className="cc0img9">
-          <MessageView />
+          <div className="cgmxdsh">
+            <MessageView />
+          </div>
         </main>
 
         <Footer />

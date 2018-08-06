@@ -29,8 +29,8 @@ export default class MessageForm extends Component {
   handleFormChange(event) {
     const { name, value } = event.target
 
-    this.setState({ message:
-      {
+    this.setState({ 
+      message: {
         ...this.state.message,
         [name]: value
       }
@@ -40,7 +40,7 @@ export default class MessageForm extends Component {
   handleFormSubmit(event) {
     event.preventDefault()
     this.props.messageStore.createMessage(this.state.message)
-    this.setState({ message: { ...initialMessage } })
+    this.setState({ message: initialMessage })
   }
 
   handleMessageBlur(value) {
@@ -62,9 +62,9 @@ export default class MessageForm extends Component {
   }
 
   render() {
-    let { submitting } = this.props.messageStore
-    let { content, color } = this.state.message
-    let touchedClass = this.state.touched ? 'touched' :  ''
+    const { submitting } = this.props.messageStore
+    const { content, color } = this.state.message
+    const touchedClass = this.state.touched ? 'touched' :  ''
 
     return(
       <div className="MessageForm">
@@ -101,7 +101,10 @@ export default class MessageForm extends Component {
               </div>
 
               <div className="c7vrlqv">
-                <button className="c13ogcrc" disabled={!content || submitting} type="submit">
+                <button
+                  id="MessageForm-submit"
+                  className="c13ogcrc"
+                  disabled={!content || submitting} type="submit">
                   { this.renderButton() }
                 </button>
               </div>

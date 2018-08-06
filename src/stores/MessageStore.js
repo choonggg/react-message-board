@@ -19,8 +19,18 @@ class MessageStore {
   }
 
   @action
+  addMessage(message) {
+    this.messages.unshift(message)
+  }
+
+  @action
+  setFilter(filters) {
+    this.filters = filters
+  }
+
+  @action
   async search(newFilters, filterType) {
-    this.filters = Object.assign({}, this.filters, newFilters)
+    this.setFilter( Object.assign({}, this.filters, newFilters) )
     this.query(filterType, true)
     await this.fetchMessages()
     this.query(filterType, false)
@@ -41,7 +51,7 @@ class MessageStore {
       runInAction(() => {
         this.loading = false
         this.submitting = false
-        this.messages.unshift(response.data)
+        this.addMessage(response.data)
       })
     } catch(error) {
       runInAction(() => {

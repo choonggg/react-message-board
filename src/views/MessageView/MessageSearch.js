@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react'
 import { DebounceInput } from 'react-debounce-input';
 
 import ProgressBar from '@/components/ProgressBar'
-import MessageCount from './MessageCount'
+import Badge from '@/components/Badge'
 import ColorSelect from './ColorSelect'
 
 @inject('messageStore')
@@ -41,7 +41,7 @@ export default class MessageSearch extends Component {
         <header className="c1pr40a">
           <div className="c12q1r7z">
             <h2 className="c17zq7b5">Messages</h2>
-            <MessageCount count={messageCount} />
+            <Badge count={messageCount} />
             { (() => {
               if (fetching) return <ProgressBar className="c1g8hd9e c1sg2lsz" />
             })() }
