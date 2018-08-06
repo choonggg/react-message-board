@@ -13,7 +13,7 @@ export default class ColorSelect extends Component {
   render() {
     return (
       <select
-        className="cytasr3"
+        className="ColorSelect cytasr3"
         value={this.props.value}
         name={this.props.name}
         disabled={this.props.disabled || false}
