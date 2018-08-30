@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "front-end-message-board",
   "sideEffects": false,
   "babel": {
